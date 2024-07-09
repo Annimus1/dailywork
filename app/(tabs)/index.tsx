@@ -2,7 +2,7 @@ import Reat from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 
-export default function JobsPage() {
+export default function index(){
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Jobs tab</Text>
