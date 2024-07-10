@@ -12,7 +12,13 @@ Welcome to DailyWork, an application designed to quickly and easily track the am
 
 [X] Create button to add a new job.
 
-[ ] Create modal to add a new job.
+[X] Create modal to add a new job.
+
+[X] Set a Dropdown to select Category & Status
+
+[ ] Set Date Picker
+
+[ ] Configure a connection with a SQL DDBB
 
 
 ### Debs page

@@ -1,19 +1,21 @@
 import Reat from 'react';
-import { View, Text, StyleSheet, Button, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert, Modal, TouchableOpacity } from 'react-native';
 
 import { Colors } from '@/constants/Colors';
 import CustomButton from '@/components/CustomButton';
-
-import { FontAwesome6 } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
-
+import AddJob from '@/components/AddJob';
 import JobsList from '@/components/JobsList';
 
 export default function index() {
+  const [Visible, setVisible] = Reat.useState(false);
+
   return (
     <View style={styles.container}>
+
+      <AddJob visible={Visible} setVisible={setVisible}/>
+
       {/* Notes */}
-      <View style={{ width: 350, flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 10 , padding: 10}}>
+      <View style={{ width: 350, flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 10, padding: 10 }}>
         <CustomButton title={'Notes'} onPress={() => { Alert.alert("Show Comands for notes (add and view).") }} />
       </View>
 
@@ -21,7 +23,7 @@ export default function index() {
       <JobsList />
 
       {/*Add new Job button */}
-      <CustomButton title='Add new Job' onPress={() => Alert.alert("Add new Job")} />
+      <CustomButton title='Add new Job' onPress={() => setVisible(true)} />
 
     </View>
   );
@@ -33,10 +35,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.light.background
-  },
-  title: {
-    fontSize: 30
-  },
+  }
 });
-
-
