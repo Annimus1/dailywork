@@ -8,9 +8,12 @@ Welcome to DailyWork, an application designed to quickly and easily track the am
 
 [X] Create Jobs page.
 
-[ ] Create button to add a new job.
+[X] Create list to viewing all Jobs.
 
-[ ] Create a list for viewing all jobs.
+[X] Create button to add a new job.
+
+[ ] Create modal to add a new job.
+
 
 ### Debs page
 
