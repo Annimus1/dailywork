@@ -16,7 +16,7 @@ Welcome to DailyWork, an application designed to quickly and easily track the am
 
 [X] Set a Dropdown to select Category & Status
 
-[ ] Set Date Picker
+[X] Set Date Picker
 
 [ ] Configure a connection with a SQL DDBB
 

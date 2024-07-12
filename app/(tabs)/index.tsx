@@ -8,6 +8,7 @@ import JobsList from '@/components/JobsList';
 
 export default function index() {
   const [Visible, setVisible] = Reat.useState(false);
+  
 
   return (
     <View style={styles.container}>
@@ -23,7 +24,7 @@ export default function index() {
       <JobsList />
 
       {/*Add new Job button */}
-      <CustomButton title='Add new Job' onPress={() => setVisible(true)} />
+      <CustomButton title='Add new Job' onPress={() => setVisible(!Visible) } />
 
     </View>
   );
