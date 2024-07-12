@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, SafeAreaView, FlatList, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, SafeAreaView, FlatList, StyleSheet, Pressable } from "react-native";
 import { Colors } from "@/constants/Colors";
 import testJobs from '@/util';
 
@@ -13,7 +13,7 @@ export default function JobsList() {
         renderItem={
           ({ item }) => {
             return (
-              <TouchableOpacity style={Item.container}>
+              <Pressable style={Item.container}>
                 <View style={Item.header}>
                   <Text style={Item.title}>{item.title}</Text>
                   <Text>${item.payment}</Text>
@@ -22,7 +22,7 @@ export default function JobsList() {
                   <Text>{item.date}</Text>
                   <Text style={Item.category}>{item.category}</Text>
                 </View>
-              </TouchableOpacity>
+              </Pressable>
             );
           }
         }

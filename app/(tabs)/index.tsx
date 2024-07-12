@@ -1,5 +1,5 @@
 import Reat from 'react';
-import { View, Text, StyleSheet, Alert, Modal, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 
 import { Colors } from '@/constants/Colors';
 import CustomButton from '@/components/CustomButton';
