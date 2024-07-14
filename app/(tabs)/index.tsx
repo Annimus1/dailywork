@@ -6,14 +6,18 @@ import CustomButton from '@/components/CustomButton';
 import AddJob from '@/components/AddJob';
 import JobsList from '@/components/JobsList';
 
+import { initDB } from '@/components/DB/database';
+
+
 export default function index() {
   const [Visible, setVisible] = Reat.useState(false);
-  
+
+  initDB(); 
 
   return (
     <View style={styles.container}>
 
-      <AddJob visible={Visible} setVisible={setVisible}/>
+      <AddJob visible={Visible} setVisible={setVisible} />
 
       {/* Notes */}
       <View style={{ width: 350, flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 10, padding: 10 }}>
@@ -24,7 +28,7 @@ export default function index() {
       <JobsList />
 
       {/*Add new Job button */}
-      <CustomButton title='Add new Job' onPress={() => setVisible(!Visible) } />
+      <CustomButton title='Add new Job' onPress={() => setVisible(!Visible)} />
 
     </View>
   );
