@@ -152,16 +152,4 @@ const testJobs: Job[] = [
   },
 ]
 
-export const CategoryData = [
-  { label: "Mantenimiento", value: 'Mantenimiento' },
-  { label: "Compresor", value: 'Compresor' },
-  { label: "Cambio de partes", value: "Cambio de partes" },
-  { label: "Carga de Gas", value: "Carga de gas" }
-]
-
-export const StatusData = [
-  {label:'Pagado',value:'Pagado'},
-  {label:'Pendiente',value:'Pendiente'}
-]
-
 export default testJobs;

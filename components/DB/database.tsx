@@ -8,12 +8,12 @@ export async function initDB() {
         
         CREATE TABLE IF NOT EXISTS Categories (
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
-        name VARCHAR(255) NOT NULL
+        name VARCHAR(255) NOT NULL UNIQUE
         );
         
         CREATE TABLE IF NOT EXISTS Status (
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
-        name VARCHAR(255) NOT NULL);
+        name VARCHAR(255) NOT NULL UNIQUE);
         
         CREATE TABLE IF NOT EXISTS Creditors (
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
@@ -34,7 +34,7 @@ export async function initDB() {
             statusID INTEGER NOT NULL, 
             title VARCHAR(50) NOT NULL, 
             description VARCHAR(255), 
-            price FLOAT(2) NOT NULL, 
+            payment FLOAT(2) NOT NULL, 
             date DATE NOT NULL, 
             dueDate DATE, 
             FOREIGN KEY (categoryID) REFERENCES Categories(id),
@@ -48,3 +48,61 @@ export async function initDB() {
 //     console.log(row.id, row.value, row.intValue);
 //   }
 // }
+
+export async function CreateCategory(categoryName:String){
+  
+  const statement = await db.prepareAsync(
+    'INSERT INTO Categories (name) VALUES ($category)'
+  );
+
+  try {
+    let result = await statement.executeAsync({ $category: categoryName});
+  }
+  finally {
+    await statement.finalizeAsync();
+  }
+  
+}
+
+export async function CreateStatus(statusName:String){
+  
+  const statement = await db.prepareAsync(
+    'INSERT INTO Status (name) VALUES ($status)'
+  );
+
+  try {
+    let result = await statement.executeAsync({ $status: statusName});
+  }
+  finally {
+    await statement.finalizeAsync();
+  }
+  
+}
+
+export async function getCategories(){
+  const allRows = await db.getAllAsync('SELECT * FROM Categories');
+  const allCategories = [];
+
+  for (const row of allRows) {
+    let cat = {label: row.name , value: row.name}
+    allCategories.push(cat);
+  }
+
+  return allCategories;
+}
+
+export async function getStatus(){
+  const allRows = await db.getAllAsync('SELECT * FROM Status');
+  const allStatus = [];
+
+  for (const row of allRows) {
+    let stat = {label: row.name , value: row.name}
+    allStatus.push(stat);
+  }
+
+  return allStatus;
+}
+
+export async function cleanDB(table:String){
+  await db.execAsync(`DROP TABLE ${table};`)
+}

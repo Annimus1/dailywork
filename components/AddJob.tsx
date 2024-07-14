@@ -1,20 +1,41 @@
 import React from "react";
 import { View, Text, Modal, StyleSheet, TextInput, Pressable } from "react-native";
 import CustomButton from "./CustomButton";
-import { CategoryData, StatusData } from "@/util";
 
 import { AntDesign } from '@expo/vector-icons';
 import { Colors } from "@/constants/Colors";
 import Select from "./Select";
-import DateTimePicker from "react-native-ui-datepicker";
 import CustomCalendarPicker from "./CustomCalendarPicker";
+import AddCategory from "./AddFeature";
+import { CreateCategory, CreateStatus, getCategories, getStatus } from "./DB/database";
 
 
 
 export default function AddJob({ visible, setVisible }) {
 
-  const [ date, setDate ] = React.useState(new Date());
-  const [ dueDate, setDueDate ] = React.useState(new Date());
+  const [title] = React.useState();
+  const [description] = React.useState();
+  const [status] = React.useState();
+  const [category] = React.useState();
+  const [payment] = React.useState();
+  const [date, setDate] = React.useState(new Date());
+  const [dueDate, setDueDate] = React.useState(new Date());
+  
+  const [CategoryData, setCategoryData]  = React.useState([]); 
+  const [StatusData, setStatusData] = React.useState([]);
+
+  const initCategories = async ()=>{
+    await getCategories().then(data => { setCategoryData(data) })
+  }
+
+  const initStatus = async ()=>{
+    await getStatus().then(data => { setStatusData(data) })
+  }
+
+  React.useEffect(()=>{
+    initCategories();
+    initStatus();
+  },[])
 
 
   return (
@@ -48,8 +69,13 @@ export default function AddJob({ visible, setVisible }) {
           />
         </View>
 
-        <View style={styles.formGroup}>
-          <Select data={CategoryData} label={"Select a Category ..."} />
+        <View style={styles.formGroup} onPointerEnter={()=> initCategories()}>
+          <View style={{ width: 290, flexDirection: 'row' }}>
+            <Select data={CategoryData} label={"Select a Category ..."} />
+            <View style={{ width: 50, paddingVertical:10, marginLeft: 5}}>
+              <AddCategory onChange={initCategories} label={'Category'} action={CreateCategory}/>
+            </View>
+          </View>
         </View>
 
         <View style={styles.formGroup}>
@@ -72,11 +98,16 @@ export default function AddJob({ visible, setVisible }) {
         </View>
 
         <View style={styles.formGroup}>
-          <CustomCalendarPicker title='Date' date={date} setDate={setDate}/>
+          <CustomCalendarPicker title='Date' date={date} setDate={setDate} />
         </View>
 
-        <View style={styles.formGroup}>
-          <Select data={StatusData} label={"Select a Status ..."} />
+        <View style={styles.formGroup} onPointerEnter={()=> initCategories()}>
+          <View style={{ width: 290, flexDirection: 'row' }}>
+            <Select data={StatusData} label={"Select a Status ..."} />
+            <View style={{ width: 50, paddingVertical:10, marginLeft: 5}}>
+              <AddCategory onChange={initStatus} label={'Status'} action={CreateStatus}/>
+            </View>
+          </View>
         </View>
 
         <View style={styles.formGroup}>
