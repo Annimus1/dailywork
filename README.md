@@ -2,6 +2,10 @@
 
 Welcome to DailyWork, an application designed to quickly and easily track the amount of jobs I do in my daily life as a refrigeration technician.
 
+## Database Structure
+
+![database Structure](assets/images/databaseStructure.png)
+
 ## To-Do
 
 ### Jobs page
@@ -18,8 +22,17 @@ Welcome to DailyWork, an application designed to quickly and easily track the am
 
 [X] Set Date Picker
 
-[ ] Configure a connection with a SQL DDBB
+[X] Configure a connection with a SQL DDBB
 
+[X] Be able to create new categories
+
+[X] Be able to create new Status
+
+[X] save the jobs in the database
+
+[ ] View jobs from database
+
+[ ] fix style isues (dark mode) 
 
 ### Debs page
 

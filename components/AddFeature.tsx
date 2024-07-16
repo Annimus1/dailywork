@@ -2,11 +2,9 @@ import React from "react";
 import { View, Text, Modal, TextInput, StyleSheet } from 'react-native';
 import CustomButton from "./CustomButton";
 import { Colors } from "@/constants/Colors";
-import { getCategories } from "./DB/database";
-
 
 export default function AddCategory({label, onChange, action}) {
-  const [category, setCategory] = React.useState('');
+  const [feature, setFeature] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -21,22 +19,19 @@ export default function AddCategory({label, onChange, action}) {
           <TextInput
             style={styles.input}
             placeholder={`${label}`}
-            onChangeText={text => setCategory(text)}
-            value={category}
+            onChangeText={text => setFeature(text)}
+            value={feature}
           />
 
           <CustomButton title={`Create ${label}`} onPress={async () => {
-            await action(category)
-            setCategory('');
+            await action(feature)
+            setFeature('');
             setOpen(!open);
             onChange();
           }} />
         </View>
 
-        <CustomButton title={'+'} round onPress={async () => console.log(await getCategories())} />
-
       </Modal>
-
 
       <CustomButton title={'+'} onPress={() => setOpen(!open)} round />
 

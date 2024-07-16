@@ -1,4 +1,5 @@
 import * as SQLite from 'expo-sqlite';
+import { JobType } from '../types';
 
 const db = SQLite.openDatabaseSync("DailyWork.db");
 
@@ -42,12 +43,35 @@ export async function initDB() {
     `);
 }
 
-// export async function getAll() {
-//   const allRows = await db.getAllAsync('SELECT * FROM tableName');
-//   for (const row of allRows) {
-//     console.log(row.id, row.value, row.intValue);
-//   }
-// }
+export async function saveJob(Job:JobType){
+  
+  const statement = await db.prepareAsync(
+    `INSERT INTO Jobs (categoryID, statusID, title, description, payment, date, dueDate) 
+                 VALUES ($categoryID, $statusID, $title, $description, $payment, $date, $dueDate)`
+  );
+
+  try {
+    let result = await statement.executeAsync({ 
+      $categoryID: Job.category,
+      $statusID: Job.status,
+      $title: Job.title,
+      $description: Job.description,
+      $payment: Job.payment,
+      $date: Job.date,
+      $dueDate: Job.dueDate
+    });
+  }
+  finally {
+    await statement.finalizeAsync();
+  }
+  
+}
+
+export async function getJobs(){
+  const allRows = await db.getAllAsync('SELECT * FROM Jobs');
+ 
+  return allRows;
+}
 
 export async function CreateCategory(categoryName:String){
   
@@ -84,7 +108,7 @@ export async function getCategories(){
   const allCategories = [];
 
   for (const row of allRows) {
-    let cat = {label: row.name , value: row.name}
+    let cat = {label: row.name , value: row.id}
     allCategories.push(cat);
   }
 
@@ -96,7 +120,7 @@ export async function getStatus(){
   const allStatus = [];
 
   for (const row of allRows) {
-    let stat = {label: row.name , value: row.name}
+    let stat = {label: row.name , value: row.id}
     allStatus.push(stat);
   }
 
