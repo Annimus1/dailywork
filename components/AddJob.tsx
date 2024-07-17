@@ -8,22 +8,23 @@ import Select from "./Select";
 import CustomCalendarPicker from "./CustomCalendarPicker";
 import AddCategory from "./AddFeature";
 import { CreateCategory, CreateStatus, getCategories, getStatus, saveJob } from "./DB/database";
+import { JobType } from "./types";
 
 
 
-export default function AddJob({ visible, setVisible }) {
+export default function AddJob({ visible, setVisible }: {visible: boolean, setVisible: React.Dispatch<React.SetStateAction<boolean>>}) {
 
   const [title, setTitle] = React.useState("");
-  const [description, setDescription] = React.useState(null);
+  const [description, setDescription] = React.useState<string | null >(null);
   const [status, setStatus] = React.useState(null);
   const [category, setCategory] = React.useState(null);
-  const [payment, setPayment] = React.useState(null);
+  const [payment, setPayment] = React.useState<number | null>(null);
   const [date, setDate] = React.useState(new Date());
   const [dueDate, setDueDate] = React.useState(new Date());
 
   const [error, setError] = React.useState(false);  
-  const [CategoryData, setCategoryData]  = React.useState([]); 
-  const [StatusData, setStatusData] = React.useState([]);
+  const [CategoryData, setCategoryData]  = React.useState<{label: String, value: Number}[]>([]); 
+  const [StatusData, setStatusData] = React.useState<{label: String, value: Number}[]>([]);
 
   const initCategories = async ()=>{
     await getCategories().then(data => { setCategoryData(data) })
@@ -35,7 +36,7 @@ export default function AddJob({ visible, setVisible }) {
 
   const cleanForm = ()=>{
     setTitle('');
-    setDescription('');
+    setDescription("");
     setStatus(null);
     setCategory(null);
     setPayment(null);
@@ -108,7 +109,7 @@ export default function AddJob({ visible, setVisible }) {
           <TextInput
             style={[styles.input, { borderColor: (error && !payment) ? 'red' : 'black' }]}
             onChangeText={ text => setPayment( parseFloat(text) ) }
-            value={ payment }
+            value={ payment?.toString() }
             placeholder="Payment"
             keyboardType="numeric"
           />
@@ -155,7 +156,7 @@ export default function AddJob({ visible, setVisible }) {
         <View>
           <CustomButton title={'Save'} onPress={()=>{
             // create an Object to save the info into the database
-            const Data = {
+            const Data: JobType = {
               title,
               description,
               status,

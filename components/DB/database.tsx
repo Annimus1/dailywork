@@ -1,5 +1,5 @@
 import * as SQLite from 'expo-sqlite';
-import { JobType } from '../types';
+import { FeatureType, JobType } from '../types';
 
 const db = SQLite.openDatabaseSync("DailyWork.db");
 
@@ -105,28 +105,31 @@ export async function CreateStatus(statusName:String){
 
 export async function getCategories(){
   const allRows = await db.getAllAsync('SELECT * FROM Categories');
-  const allCategories = [];
+  const allCategories: FeatureType[]= [];
 
-  for (const row of allRows) {
-    let cat = {label: row.name , value: row.id}
-    allCategories.push(cat);
-  }
+  allRows?.forEach((row)=>{
+    allCategories.push({label:row.name, value: row.id});
+  });
 
   return allCategories;
 }
 
 export async function getStatus(){
   const allRows = await db.getAllAsync('SELECT * FROM Status');
-  const allStatus = [];
+  const allStatus: FeatureType[]= [];
 
-  for (const row of allRows) {
-    let stat = {label: row.name , value: row.id}
-    allStatus.push(stat);
-  }
+  allRows?.forEach((row)=>{
+    allStatus.push({label:row.name, value: row.id});
+  });
 
   return allStatus;
 }
 
-export async function cleanDB(table:String){
-  await db.execAsync(`DROP TABLE ${table};`)
+// export async function cleanDB(table:String){
+//   await db.execAsync(`DROP TABLE ${table};`)
+// }
+
+export async function cleanDB(){
+  const t = await db.getFirstAsync('SELECT * FROM Status')
+  console.log(t)
 }

@@ -3,7 +3,7 @@ import { View, Text, Modal, TextInput, StyleSheet } from 'react-native';
 import CustomButton from "./CustomButton";
 import { Colors } from "@/constants/Colors";
 
-export default function AddCategory({label, onChange, action}) {
+export default function AddCategory({label, onChange, action}:{label:String, onChange: ()=> void, action:(featureName:String)=> void}) {
   const [feature, setFeature] = React.useState('');
   const [open, setOpen] = React.useState(false);
 
