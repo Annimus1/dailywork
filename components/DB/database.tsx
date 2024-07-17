@@ -52,8 +52,8 @@ export async function saveJob(Job:JobType){
 
   try {
     let result = await statement.executeAsync({ 
-      $categoryID: Job.category,
-      $statusID: Job.status,
+      $categoryID: Job.categoryID,
+      $statusID: Job.statusID,
       $title: Job.title,
       $description: Job.description,
       $payment: Job.payment,
@@ -68,7 +68,7 @@ export async function saveJob(Job:JobType){
 }
 
 export async function getJobs(){
-  const allRows = await db.getAllAsync('SELECT * FROM Jobs');
+  const allRows: JobType[] = await db.getAllAsync('SELECT * FROM Jobs');
  
   return allRows;
 }
@@ -112,6 +112,16 @@ export async function getCategories(){
   });
 
   return allCategories;
+}
+
+export async function getCategoryName( categoryID: Number){
+  const row = await db.getFirstAsync(`SELECT * FROM Categories WHERE id = ${ categoryID } `)
+  return row.name;
+}
+
+export async function getStatusName( statusID: Number){
+  const row = await db.getFirstAsync(`SELECT * FROM Status WHERE id = ${ statusID } `)
+  return row.name;
 }
 
 export async function getStatus(){

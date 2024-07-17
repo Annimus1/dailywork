@@ -12,7 +12,12 @@ import { JobType } from "./types";
 
 
 
-export default function AddJob({ visible, setVisible }: {visible: boolean, setVisible: React.Dispatch<React.SetStateAction<boolean>>}) {
+export default function AddJob({ visible, setVisible, updateJobs}: 
+  {
+    visible: boolean, 
+    setVisible: React.Dispatch<React.SetStateAction<boolean>>,
+    updateJobs: ()=>Promise<void>
+  }) {
 
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState<string | null >(null);
@@ -159,8 +164,8 @@ export default function AddJob({ visible, setVisible }: {visible: boolean, setVi
             const Data: JobType = {
               title,
               description,
-              status,
-              category,
+              statusID : status,
+              categoryID: category,
               payment,
               date : `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`,
               dueDate: `${dueDate.getFullYear()}-${dueDate.getMonth()+1}-${dueDate.getDate()}`
@@ -169,13 +174,16 @@ export default function AddJob({ visible, setVisible }: {visible: boolean, setVi
             Data.description = description? description:null ;
 
 
-            if(Data.category && Data.status && Data.payment && Data.title){
+            if(Data.categoryID && Data.statusID && Data.payment && Data.title){
               
               // Save the info into the database
               saveJob(Data);
 
               // clear form
               cleanForm();
+
+              // update job's list
+              updateJobs();
 
               // close the modal
               setVisible(!visible)

@@ -7,7 +7,6 @@ export default function DebtsPage(){
     return(
         <View style={styles.container}>
             <Text style={styles.title}>Debts Page.</Text>
-            <CustomButton title={'test'} onPress={cleanDB} />
         </View>
     );
 }

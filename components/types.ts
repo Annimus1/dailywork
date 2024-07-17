@@ -1,9 +1,9 @@
 export type JobType = {
   title: String,
   description: String | null,
-  status: Number | null,
-  category: Number | null,
-  payment: Number | null,
+  statusID: Number ,
+  categoryID: Number,
+  payment: Number,
   date: String,
   dueDate: String
 }

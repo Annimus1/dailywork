@@ -32,7 +32,12 @@ Welcome to DailyWork, an application designed to quickly and easily track the am
 
 - [ ] View jobs from database
 
-- [ ] fix style isues (dark mode) 
+- [X] fix style isues (dark mode)
+
+- [ ] ceate a note pop-up
+
+- [ ] note's CRUD
+
 
 ### Debs page
 

@@ -1,33 +1,33 @@
 import React from "react";
 import { View, Text, SafeAreaView, FlatList, StyleSheet, Pressable } from "react-native";
 import { Colors } from "@/constants/Colors";
-import testJobs from '@/util';
+import { JobType } from "./types";
+import JobItem from "./JobItem";
 
-export default function JobsList() {
+export default function JobsList({ jobs }: { jobs: JobType[] }) {
 
   return (
-    <SafeAreaView style={styles.list}>
-
-      <FlatList
-        data={testJobs}
-        renderItem={
-          ({ item }) => {
-            return (
-              <Pressable style={Item.container}>
-                <View style={Item.header}>
-                  <Text style={Item.title}>{item.title}</Text>
-                  <Text>${item.payment}</Text>
-                </View>
-                <View style={Item.header}>
-                  <Text>{item.date}</Text>
-                  <Text style={Item.category}>{item.category}</Text>
-                </View>
-              </Pressable>
-            );
-          }
-        }
-      />
-    </SafeAreaView>
+    <>
+      {jobs.length != 0 ?
+        <SafeAreaView style={styles.list}>
+          <FlatList
+            data={jobs}
+            renderItem={
+              ({ item }) => {
+                return (
+                  < JobItem item={item} />
+                );
+              }
+            }
+          />
+        </SafeAreaView> 
+        :
+        <View style={styles.noJobs}>
+          <Text style={styles.text}>Oh, looks like you have no Jobs for now.</Text>
+          <Text style={styles.text}>You can create one by hitting "Add new Job" button.</Text>
+        </View>
+      }
+    </>
   );
 }
 
@@ -39,30 +39,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 4
   },
-});
-
-const Item = StyleSheet.create({
-  container: {
-    padding: 5,
-    marginVertical: 4,
-    marginHorizontal: 5,
-    backgroundColor: Colors.light.background,
-    borderRadius: 4
+  noJobs: {
+    width: 350,
+    height: 500,
+    marginBottom: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 0
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-
-  },
-  title: {
+  text: {
     fontSize: 18,
-    fontWeight: '600'
-  },
-  category: {
-    fontSize: 14,
-    borderRadius: 9,
-    backgroundColor: Colors.dark.icon,
-    color: Colors.dark.text,
-    padding: 2
+    color: Colors.light.text,
+    marginBottom: 10
   }
 });
